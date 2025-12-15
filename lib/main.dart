@@ -29,70 +29,63 @@ class RelatorioViagensPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      body: Stack(
-        children: [
-          const _RelatorioHeader(),
-          Positioned.fill(
-            top: 220,
-            child: Container(
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GridView.count(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 14,
-                      crossAxisSpacing: 14,
-                      childAspectRatio: 1.2,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        _QuickActionCard(
-                          backgroundColor: Colors.deepPurple.shade50,
-                          title: 'Vai viajar?',
-                          illustration: const _FlatIllustration(mainIcon: Icons.airplane_ticket_outlined, accentIcon: Icons.airplanemode_active),
-                          onTap: () => _toast(context, 'Vai viajar?'),
-                        ),
-                        _QuickActionCard(
-                          backgroundColor: Colors.green.shade50,
-                          title: 'Gastou?',
-                          illustration: const _FlatIllustration(mainIcon: Icons.account_balance_wallet_outlined, accentIcon: Icons.warning_amber_rounded),
-                          onTap: () => _toast(context, 'Gastou?'),
-                        ),
-                        _QuickActionCard(
-                          backgroundColor: Colors.lightBlue.shade50,
-                          title: 'Diárias',
-                          illustration: const _FlatIllustration(mainIcon: Icons.calendar_month_outlined, accentIcon: Icons.event_available),
-                          onTap: () => _toast(context, 'Diárias'),
-                        ),
-                        _QuickActionCard(
-                          backgroundColor: Colors.pink.shade50,
-                          title: 'Mudou a direção?',
-                          illustration: const _FlatIllustration(mainIcon: Icons.alt_route, accentIcon: Icons.question_mark),
-                          onTap: () => _toast(context, 'Mudou a direção?'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    _LargeActionCard(
-                      backgroundColor: Colors.amber.shade50,
-                      title: 'Acompanhar minhas viagens',
-                      titleColor: Colors.amber.shade800,
-                      illustration: const _FlatIllustration(mainIcon: Icons.luggage_outlined, accentIcon: Icons.flight, big: true),
-                      onTap: () => _toast(context, 'Acompanhar minhas viagens'),
-                    ),
-                    const SizedBox(height: 22),
-                    Text('Próxima viagem', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
-                    const SizedBox(height: 10),
-                    const _NextTripCard(date: '18 Dez', origin: 'São Paulo', destination: 'Rio de Janeiro'),
-                  ],
+      body: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(child: _RelatorioHeader()),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 14, crossAxisSpacing: 14, childAspectRatio: 1.2),
+              delegate: SliverChildListDelegate([
+                _QuickActionCard(
+                  backgroundColor: Colors.deepPurple.shade50,
+                  title: 'Vai viajar?',
+                  illustration: const _FlatIllustration(mainIcon: Icons.airplane_ticket_outlined, accentIcon: Icons.airplanemode_active),
+                  onTap: () => _toast(context, 'Vai viajar?'),
                 ),
+                _QuickActionCard(
+                  backgroundColor: Colors.green.shade50,
+                  title: 'Gastou?',
+                  illustration: const _FlatIllustration(mainIcon: Icons.account_balance_wallet_outlined, accentIcon: Icons.warning_amber_rounded),
+                  onTap: () => _toast(context, 'Gastou?'),
+                ),
+                _QuickActionCard(
+                  backgroundColor: Colors.lightBlue.shade50,
+                  title: 'Diárias',
+                  illustration: const _FlatIllustration(mainIcon: Icons.calendar_month_outlined, accentIcon: Icons.event_available),
+                  onTap: () => _toast(context, 'Diárias'),
+                ),
+                _QuickActionCard(
+                  backgroundColor: Colors.pink.shade50,
+                  title: 'Mudou a direção?',
+                  illustration: const _FlatIllustration(mainIcon: Icons.alt_route, accentIcon: Icons.question_mark),
+                  onTap: () => _toast(context, 'Mudou a direção?'),
+                ),
+              ]),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 22),
+            sliver: SliverToBoxAdapter(
+              child: _LargeActionCard(
+                backgroundColor: Colors.amber.shade50,
+                title: 'Acompanhar minhas viagens',
+                titleColor: Colors.amber.shade800,
+                illustration: const _FlatIllustration(mainIcon: Icons.luggage_outlined, accentIcon: Icons.flight, big: true),
+                onTap: () => _toast(context, 'Acompanhar minhas viagens'),
               ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            sliver: SliverToBoxAdapter(
+              child: Text('Próxima viagem', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+            ),
+          ),
+          const SliverPadding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 24),
+            sliver: SliverToBoxAdapter(
+              child: _NextTripCard(date: '18 Dez', origin: 'São Paulo', destination: 'Rio de Janeiro'),
             ),
           ),
         ],
