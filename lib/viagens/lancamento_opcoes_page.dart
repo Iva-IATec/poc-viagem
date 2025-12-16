@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poc_viagem/viagens/lancamentos_screen.dart';
 
 import '../ui/theme.dart';
 // import 'package:flutter/services.dart';
@@ -12,8 +13,6 @@ class LancamentoOpcoesPage extends StatefulWidget {
 }
 
 class _LancamentoOpcoesPageState extends State<LancamentoOpcoesPage> {
-  String? _selecionado; // 'diario' | 'despesa'
-
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
@@ -46,17 +45,15 @@ class _LancamentoOpcoesPageState extends State<LancamentoOpcoesPage> {
                         Expanded(
                           child: AppOutlineOption(
                             label: 'Diário',
-                            selected: _selecionado == 'diario',
-                            onTap: () => setState(() => _selecionado = 'diario'),
+                            selected: true,
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LancamentosScreen()));
+                            },
                           ),
                         ),
                         const SizedBox(width: AppSpacing.sm),
                         Expanded(
-                          child: AppOutlineOption(
-                            label: 'Por Despesa',
-                            selected: _selecionado == 'despesa',
-                            onTap: () => setState(() => _selecionado = 'despesa'),
-                          ),
+                          child: AppOutlineOption(label: 'Por Despesa', selected: true, onTap: () {}),
                         ),
                       ],
                     ),
@@ -71,10 +68,7 @@ class _LancamentoOpcoesPageState extends State<LancamentoOpcoesPage> {
         minimum: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.md),
         child: SizedBox(
           height: 52,
-          child: FilledButton.tonal(
-            onPressed: () => Navigator.maybePop(context),
-            child: const Text('Mais tarde'),
-          ),
+          child: FilledButton.tonal(onPressed: () => Navigator.maybePop(context), child: const Text('Mais tarde')),
         ),
       ),
     );
@@ -100,19 +94,23 @@ class _IlustracaoFinanceira extends StatelessWidget {
             Container(
               height: 160,
               width: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(AppRadius.lg),
-                boxShadow: [appShadow(0.04)],
-              ),
+              decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(AppRadius.lg), boxShadow: [appShadow(0.04)]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.receipt_long, size: 56, color: Colors.grey.shade700),
                   const SizedBox(height: 8),
-                  Container(height: 8, width: 120, decoration: BoxDecoration(color: neutral, borderRadius: BorderRadius.circular(6))),
+                  Container(
+                    height: 8,
+                    width: 120,
+                    decoration: BoxDecoration(color: neutral, borderRadius: BorderRadius.circular(6)),
+                  ),
                   const SizedBox(height: 6),
-                  Container(height: 8, width: 80, decoration: BoxDecoration(color: neutral, borderRadius: BorderRadius.circular(6))),
+                  Container(
+                    height: 8,
+                    width: 80,
+                    decoration: BoxDecoration(color: neutral, borderRadius: BorderRadius.circular(6)),
+                  ),
                 ],
               ),
             ),
