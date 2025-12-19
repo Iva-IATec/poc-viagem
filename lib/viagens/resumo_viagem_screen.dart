@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../ui/theme.dart';
+import './deslocamento_map_screen.dart';
 
 class ResumoViagemScreen extends StatefulWidget {
   const ResumoViagemScreen({super.key});
@@ -238,7 +239,9 @@ class _ResumoViagemScreenState extends State<ResumoViagemScreen> {
           child: SizedBox(
             width: double.infinity,
             child: OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const DeslocamentoMapScreen()));
+              },
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: Colors.grey.shade400),
                 shape: const StadiumBorder(),
