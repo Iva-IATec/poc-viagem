@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../ui/theme.dart';
+import './resumo_auxilio_screen.dart';
 
 class EditarViagemPassageirosScreen extends StatefulWidget {
   const EditarViagemPassageirosScreen({super.key});
@@ -174,7 +175,9 @@ class _EditarViagemPassageirosScreenState extends State<EditarViagemPassageirosS
             width: double.infinity,
             height: 48,
             child: ElevatedButton(
-              onPressed: () => Navigator.maybePop(context),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ResumoAuxilioScreen()));
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: azulAvancar,
                 foregroundColor: Colors.white,
