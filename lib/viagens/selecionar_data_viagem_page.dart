@@ -121,7 +121,7 @@ class _HeaderDataViagem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 6),
                     child: Text(
-                      'Data da viagem',
+                      'Período da viagem',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
                     ),

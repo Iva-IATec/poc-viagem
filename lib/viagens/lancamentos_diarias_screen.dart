@@ -136,7 +136,7 @@ class _LancamentosDiariasScreenState extends State<LancamentosDiariasScreen> {
                       children: [
                         Text('Trecho não informado', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
                         const Spacer(),
-                        FilledButton.tonal(onPressed: () {}, child: const Text('Resumo')),
+                        FilledButton.tonal(onPressed: () {}, child: const Text('Adicionar trecho')),
                       ],
                     ),
 
