@@ -10,7 +10,9 @@ import '../ui/theme.dart';
 import './editar_viagem_passageiros_screen.dart';
 
 class DeslocamentoMapScreen extends StatefulWidget {
-  const DeslocamentoMapScreen({super.key});
+  const DeslocamentoMapScreen({super.key, this.returnResult = false});
+
+  final bool returnResult; // quando true, retorna origem/destino ao fechar
 
   @override
   State<DeslocamentoMapScreen> createState() => _DeslocamentoMapScreenState();
@@ -285,7 +287,11 @@ class _DeslocamentoMapScreenState extends State<DeslocamentoMapScreen> {
                       height: 48,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const EditarViagemPassageirosScreen()));
+                          if (widget.returnResult) {
+                            Navigator.pop(context, {'origem': _origemCtrl.text.trim(), 'destino': _destinoCtrl.text.trim()});
+                          } else {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EditarViagemPassageirosScreen()));
+                          }
                         },
                         style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1976D2), foregroundColor: Colors.white),
                         child: const Text('Salvar e Avançar', style: TextStyle(fontWeight: FontWeight.w800)),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poc_viagem/viagens/deslocamento_map_screen.dart';
 import 'package:poc_viagem/viagens/detalhe_despesas_screen.dart';
 import 'package:poc_viagem/viagens/resumo_viagem_screen.dart';
+import 'package:poc_viagem/viagens/selecionar_dias_trecho_page.dart';
 
 import '../ui/theme.dart';
 import '../ui/widgets/common_widgets.dart';
@@ -88,7 +89,7 @@ class _LancamentosDiariasScreenState extends State<LancamentosDiariasScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    // final cs = Theme.of(context).colorScheme; // não utilizado
     final bool vindoDaSelecao = widget.fromSelecao;
     final bool temAlgumaDiariaSelecionada = _selecoesPorData.values.any((s) => s.isNotEmpty);
 
@@ -136,7 +137,24 @@ class _LancamentosDiariasScreenState extends State<LancamentosDiariasScreen> {
                       children: [
                         Text('Trecho não informado', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
                         const Spacer(),
-                        FilledButton.tonal(onPressed: () {}, child: const Text('Adicionar trecho')),
+                        FilledButton.tonal(
+                          onPressed: () async {
+                            final inicio = widget.dataInicio ?? _datas.first;
+                            final fim = widget.dataFim ?? _datas.last;
+                            final result = await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => SelecionarDiasTrechoPage(dataInicio: inicio, dataFim: fim),
+                              ),
+                            );
+                            if (!mounted) return;
+                            if (result is List) {
+                              ScaffoldMessenger.of(context)
+                                ..clearSnackBars()
+                                ..showSnackBar(const SnackBar(content: Text('Trechos adicionados para dias selecionados.')));
+                            }
+                          },
+                          child: const Text('Adicionar trecho'),
+                        ),
                       ],
                     ),
 
